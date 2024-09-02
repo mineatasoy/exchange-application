@@ -14,4 +14,9 @@ public class GenericWebAccessException extends RuntimeException {
         super(message, cause);
     }
 
+    public GenericWebAccessException(String message, HttpStatus httpStatus) {
+        super(message);
+        this.httpStatus = httpStatus;
+    }
+
 }
