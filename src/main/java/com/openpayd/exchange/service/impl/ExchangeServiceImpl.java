@@ -66,7 +66,8 @@ public class ExchangeServiceImpl implements ExchangeService {
     public Conversion getConversion(ConversionRequest conversionRequest) {
         LocalDate now = LocalDate.now();
         String transactionId = now + "-" + UUID.randomUUID().toString().substring(0, 18);
-        double rate = getExchangeRatesAllByBase(conversionRequest.getBase()).getRates().get(conversionRequest.getTarget());
+        String base = conversionRequest.getBase();
+        double rate = getExchangeRatesAllByBase(base).getRates().get(conversionRequest.getTarget());
         Conversion conversion = Conversion.builder()
                 .transactionId(transactionId)
                 .date(now)

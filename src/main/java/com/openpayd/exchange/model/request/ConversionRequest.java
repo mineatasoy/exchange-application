@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ConversionRequest {
 
-    String base;
-    String target;
-    double amount;
+    private String base;
+    private String target;
+    private double amount;
 
 
 }

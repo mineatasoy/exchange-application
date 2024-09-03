@@ -8,7 +8,7 @@ import com.openpayd.exchange.model.response.ExchangeResponse;
 import com.openpayd.exchange.service.ExchangeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -32,17 +32,20 @@ public class ExchangeController {
     //EXCHANGE RATE API
     @GetMapping("/exchange-rate")
     @Operation(summary = "Exchange Rate", description = "Returns the currency rate according to the base and target currency")
-    public ResponseEntity<Rate> getExchangeRate(@Parameter(description = "Base currency code", example = "USD") @RequestParam String base,
-                                                @Parameter(description = "Target currency code", example = "EUR") @RequestParam String target) {
+    public ResponseEntity<Rate> getExchangeRate(@Parameter(description = "Base currency code", example = "EUR") @RequestParam String base,
+                                                @Parameter(description = "Target currency code", example = "TRY") @RequestParam String target) {
         Rate rate = exchangeService.getExchangeRateByBase(base, target);
         return new ResponseEntity<>(rate, HttpStatus.OK);
 
     }
 
     //CONVERSION API
-    @GetMapping("/conversion")
+    @PostMapping("/conversion")
     @Operation(summary = "Convert currency", description = "Converts the specified amount from base currency to target currency")
-    public ResponseEntity<Conversion> getConversionByCurrency(@RequestBody(description = "Conversion Request", required = true) ConversionRequest conversionRequest) {
+    public ResponseEntity<Conversion> getConversionByCurrency(@RequestBody ConversionRequest conversionRequest) {
+        if (conversionRequest == null) {
+            throw new IllegalArgumentException("ConversionRequest cannot be null");
+        }
         Conversion conversion = exchangeService.getConversion(conversionRequest);
         return ResponseEntity.ok().body(conversion);
     }

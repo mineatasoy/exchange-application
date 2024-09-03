@@ -7,12 +7,10 @@ import com.openpayd.exchange.model.response.ExchangeResponse;
 import com.openpayd.exchange.repository.ConversionRepository;
 import com.openpayd.exchange.service.impl.ExchangeServiceImpl;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -45,7 +43,7 @@ public class ExchangeServiceTest {
     @Test
     void getExchangeRateByBaseTest() {
 
-        //When
+        //Given
         ExchangeResponse response = ExchangeResponse.builder().base("USD").rates(new HashMap<>() {{
             put("EUR", 0.1);
         }}).build();
@@ -92,31 +90,4 @@ public class ExchangeServiceTest {
         Assertions.assertEquals(expectedAmount, actualAmount);
 
     }
-
-    /*
-    @Test
-    void getConversionTest() {
-
-        String base = "USD";
-        String target = "EUR";
-        double rate = 0.1;
-        double amount = 1000;
-
-        ExchangeResponse response = ExchangeResponse.builder().base("USD").rates(new HashMap<>() {{
-            put("EUR", 0.1);
-        }}).build();
-
-        //Mock
-        when(webClient.get()).thenReturn(requestHeadersUriMock);
-        when(requestHeadersUriMock.headers(any())).thenReturn(requestHeadersUriMock);
-        when(requestHeadersUriMock.retrieve()).thenReturn(responseMock);
-        when(responseMock.bodyToMono(ExchangeResponse.class)).thenReturn(Mono.just(response));
-
-        Assertions.assertEquals(exchangeService.getConversion(base, target, amount), amount * rate);
-
-
-    }
-    */
-
-
 }
