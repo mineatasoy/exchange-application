@@ -5,10 +5,13 @@ Please take into consideration:
 
 This application works on the 8082 (configured at application.properties file)
 
-For the currency information "https://fixer.io/" has been used with a fee free account and it does not support requests with BASE currency, so for the requests the default value returned for base is EUR, this affects the calculations, we can use 'EUR' as base for testing to be sure. Also, this fee free account has a limited request count monthly, if it exceeds it is going to fail. It is possible to change the access key for another account in the application.properties file.
+For the currency information "https://fixer.io/" has been used with a fee free account and it does not support requests with BASE currency, so for the requests, the default value returned for base is EUR, this effects the calculations, we can use 'EUR' as base for testing to be sure. 
+
+Also, this fee free account has a limited request count monthly, if it exceeds it may fail. It is possible to change the access key with a new one for another account in the application.properties file.
  
 For the conversion history API, there is an H2 database configured and a data.sql file added to resources directory. At every start up it fills the table (CONVERSION) with dummy data. 
 
+------------------------------------------------------------
 
 This project contains 3 APIs according to the requirements
 
